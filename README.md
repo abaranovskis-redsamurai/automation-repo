@@ -6,5 +6,6 @@ Process automation with Machine Learning.
 4. diabetes_redsamurai_db.ipynb - notebook which demonstrates how to fetch training data directly from DB, prepare train/test datasets and run training with XGBoost
 5. diabetes_redsamurai_endpoint_db.ipynb - notebook which demonstrates how to use Flask to expose XGBoost ML model
 6. convnet - cat vs dog image classification model built using Python code from book: https://www.manning.com/books/deep-learning-with-python (original source code from the book on GitHub: https://github.com/fchollet/deep-learning-with-python-notebooks)
+7. forecast - future price forecast for iron/steel with Prophet model. Example how to save/load Prophet model and expose Flask API
 
 Author: Andrejus Baranovskis, Red Samurai Consulting (http://redsamuraiconsulting.com)
