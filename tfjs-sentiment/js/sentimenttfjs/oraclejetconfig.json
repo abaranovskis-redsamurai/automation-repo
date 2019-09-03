@@ -1,0 +1,20 @@
+{
+  "paths": {
+    "source": {
+      "common": "src",
+      "web": "src-web",
+      "hybrid": "src-hybrid",
+      "javascript": "js",
+      "styles": "css",
+      "themes": "themes",
+      "tests": "tests"
+    },
+    "staging": {
+      "web": "web",
+      "hybrid": "hybrid",
+      "themes": "themes"
+    }
+  },
+  "defaultBrowser": "chrome",
+  "generatorVersion": "7.1.0"
+}

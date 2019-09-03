@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <title>Katana ML</title>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
+  <link rel="icon" href="css/images/katana.ico" type="image/x-icon" />
+
+  <!-- This is the main css file for the default Alta theme -->
+  <!-- injector:theme -->
+  <link rel="stylesheet" href="css/libs/oj/v7.1.0/alta/oj-alta-min.css" type="text/css" />
+  <!-- endinjector -->
+  <!-- This contains icon fonts used by the starter template -->
+  <link rel="stylesheet" href="css/demo-alta-site-min.css" type="text/css" />
+
+  <!-- This is where you would add any app specific styling -->
+  <link rel="stylesheet" href="css/app.css" type="text/css" />
+</head>
+<body class="oj-web-applayout-body">
+  <div id="globalBody" class="oj-web-applayout-page">
+    <!--
+         ** Oracle JET V7.1.0 web application header pattern.
+         ** Please see the demos under Cookbook/Patterns/App Shell: Web
+         ** and the CSS documentation under Support/API Docs/Non-Component Styling
+         ** on the JET website for more information on how to use this pattern.
+      -->
+    <header role="banner" class="oj-web-applayout-header">
+      <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
+        <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
+          <img src="css/images/katana_logo.png" alt="Logo" width="127px" height="50px"/>
+        </div>
+      </div>
+    </header>
+    <div role="main" class="oj-web-applayout-max-width oj-web-applayout-content">
+      <h1>Hotel Review Sentiment</h1>
+      <h3>Predict sentiment for hotel review</h3>
+      <br/>
+      <h2 class="oj-header-border">DESCRIPTION</h2>
+      This sample is using TensorFlow.js to predict hotel review sentiment while user types text. Prediction is executed on the client side, without server call.
+      This allows to provide immediate feedback to the user, this could help user to adjust hotel review before review is submitted.
+      <br/><br/>
+      <h2 class="oj-header-border">EXAMPLES:</h2>
+      1. Positive: Location near Trafalgar square is excellent. Rooms a reasonable size for inner London
+      <br/>
+      2. Negative: Strange smell in the room due to newly painted or new carpet
+      <br/><br/>
+      <h2 class="oj-header-border">HOTEL REVIEW</h2>
+      <textarea rows="5" cols="120" data-bind='value: reviewText, valueUpdate: "input"'></textarea>
+      <br/><br/>
+      <h2 class="oj-header-border">PREDICTED SENTIMENT: POSITIVE (0), NEGATIVE (1)</h2>
+      <span style="font-size: 15px;" data-bind="text: 'negativity = '"></span>
+      <span style="font-size: 15px;" data-bind="text: negativityScore"></span>
+      <br/><br/>
+      <span style="font-size: 50px;" data-bind="text: sentiment"></span>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="js/libs/require/require.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+
+</body>
+
+</html>
