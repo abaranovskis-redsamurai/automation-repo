@@ -9,5 +9,6 @@ Process automation with Machine Learning.
 7. forecast - future price forecast for iron/steel with Prophet model. Example how to save/load Prophet model and expose Flask API
 8. regression - Keras/TensorFlow model with regression implementation to predict report execution time, before report request is submitted
 9. tfjs-sentiment - TensorFlow.js example where Python model is reused to calculate hotel review sentiment
+10. regressiontfjs - TensorFlow.js use case example with training, transfer learning to predict business report execution time
 
 Author: Andrejus Baranovskis, Red Samurai Consulting (http://redsamuraiconsulting.com)
