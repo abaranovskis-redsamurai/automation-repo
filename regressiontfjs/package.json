@@ -1,0 +1,19 @@
+{
+  "name": "regressiontfjs",
+  "version": "1.0.0",
+  "description": "An Oracle JavaScript Extension Toolkit(JET) web app",
+  "dependencies": {
+    "@oracle/oraclejet": "~7.1.0",
+    "@tensorflow/tfjs": "^1.2.9",
+    "papaparse": "^5.0.2"
+  },
+  "devDependencies": {
+    "@oracle/oraclejet-tooling": "~7.1.0",
+    "qunit-reporter-junit": "^1.1.1",
+    "qunit": "^2.4.1"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "private": true
+}

@@ -1,0 +1,16 @@
+{
+    "description": "OJET-CLI hooks configuration file",
+    "hooks": {
+        "after_app_create": "scripts/hooks/after_app_create.js",
+        "after_app_restore": "scripts/hooks/after_app_restore.js",
+        "after_component_create": "scripts/hooks/after_component_create.js",
+        "before_build": "scripts/hooks/before_build.js",
+        "before_release": "scripts/hooks/before_release.js",
+        "after_build": "scripts/hooks/after_build.js",
+        "after_component_build": "scripts/hooks/after_component_build.js",
+        "before_hybrid_build": "scripts/hooks/before_hybrid_build.js",
+        "before_release_build": "scripts/hooks/before_release_build.js",
+        "before_serve": "scripts/hooks/before_serve.js",
+        "after_serve": "scripts/hooks/after_serve.js"
+    }
+}

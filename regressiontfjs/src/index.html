@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <title>Katana ML</title>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
+  <link rel="icon" href="css/images/katana.ico" type="image/x-icon" />
+
+  <!-- This is the main css file for the default Alta theme -->
+  <!-- injector:theme -->
+  <link rel="stylesheet" href="css/libs/oj/v7.1.0/alta/oj-alta-min.css" type="text/css" />
+  <!-- endinjector -->
+  <!-- This contains icon fonts used by the starter template -->
+  <link rel="stylesheet" href="css/demo-alta-site-min.css" type="text/css" />
+
+  <!-- This is where you would add any app specific styling -->
+  <link rel="stylesheet" href="css/app.css" type="text/css" />
+</head>
+
+<body class="oj-web-applayout-body">
+  <div id="globalBody" class="oj-web-applayout-page">
+    <!--
+         ** Oracle JET V7.1.0 web application header pattern.
+         ** Please see the demos under Cookbook/Patterns/App Shell: Web
+         ** and the CSS documentation under Support/API Docs/Non-Component Styling
+         ** on the JET website for more information on how to use this pattern.
+      -->
+    <header role="banner" class="oj-web-applayout-header">
+      <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
+        <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
+          <img src="css/images/katana_logo.png" alt="Logo" width="127px" height="50px" />
+        </div>
+      </div>
+    </header>
+    <div role="main" class="oj-web-applayout-max-width oj-web-applayout-content">
+      <div class="oj-flex oj-sm-flex-direction-column oj-flex-items-pad">
+        <div class="oj-flex-item">
+          <h1>Report Time Execution Prediction</h1>
+        </div>
+        <div class="oj-flex-item">
+          <h3>Predicting wait time until the business report is generated</h3>
+        </div>
+        <div class="oj-flex-item">
+          <h2 class="oj-header-border">DESCRIPTION</h2>
+          Report generation in business applications typically takes time, it can be from a few seconds to minutes.
+          Report generation requires time, because typically it
+          would fetch and process many records, this process needs time. Users often get frustrated, they don’t know
+          how
+          long to wait until the report is finished and may go away by closing browser, etc. If we could inform user,
+          before submitting the report request — how long
+          it will take to execute it, this would be great usability improvement.
+        </div>
+        <br>
+        <div class="oj-flex-item">
+          <h2 class="oj-header-border">STATUS</h2>
+          <oj-bind-text value="[[statusInfo]]"></oj-bind-text>
+        </div>
+        <br>
+        <div class="oj-flex-item">
+          <h2 class="oj-header-border">MODEL TRAINING</h2>
+          <div class="oj-flex-item">
+            <oj-button id='bt1' on-oj-action='[[executeTraining]]' disabled="[[trainButtonDisabled]]">Train
+            </oj-button>
+            <oj-menu-button id="bt4" disabled="[[trainButtonDisabled]]">
+              Select
+              <oj-menu id="m1" slot="menu" style="display:none" on-oj-action="[[selectExistingModel]]">
+                <oj-bind-if test="[[trainedModelAvailable() === true]]">
+                  <oj-option id="selModel" value="model">
+                    <span class="demo-icon-font demo-bookmark-icon-16" slot="startIcon"></span>Report Execution Time
+                    Model
+                  </oj-option>
+                </oj-bind-if>
+              </oj-menu>
+            </oj-menu-button>
+          </div>
+          <oj-bind-if test="[[trainingChartVisible() === true]]">
+            <br>
+            <oj-chart id="chart1" type="line" data="[[trainingProgressDataProvider]]" animation-on-display="auto"
+              animation-on-data-change="auto" orientation="vertical" hover-behavior="dim"
+              style="width:100%;height:350px;">
+              <template slot="itemTemplate" data-oj-as="item">
+                <oj-chart-item value="[[item.data.value]]" group-id="[[ [item.data.epoch] ]]"
+                  series-id="[[item.data.series]]">
+                </oj-chart-item>
+              </template>
+            </oj-chart>
+          </oj-bind-if>
+          <div class="oj-flex oj-flex-items-pad oj-sm-flex-direction-column">
+            <div class="oj-flex-item" data-bind="visible: epochInfoVisible">
+              <br>
+              <oj-bind-text value="[[epochInfo]]"></oj-bind-text>
+            </div>
+            <div class="oj-flex-item" data-bind="visible: finalResultInfoVisible">
+              <br>
+              <oj-form-layout max-columns="6">
+                <oj-input-number id="in0" readonly value="[[baselineLoss]]"
+                  label-hint="Baseline loss (meanSquaredError)">
+                </oj-input-number>
+                <oj-input-number id="in8" readonly value="[[averageGeneralTime]]" label-hint="Average time (sec)">
+                </oj-input-number>
+                <oj-input-number id="in1" readonly value="[[finalTrainSetLoss]]" label-hint="Final train-set loss">
+                </oj-input-number>
+                <oj-input-number id="in2" readonly value="[[finalValidationSetLoss]]"
+                  label-hint="Final validation-set loss"></oj-input-number>
+                <oj-input-number id="in3" readonly value="[[testSetLoss]]" label-hint="Test-set loss">
+                </oj-input-number>
+                <oj-input-number id="in9" readonly value="[[predictionOffTime]]" label-hint="Prediction off by (sec)">
+                </oj-input-number>
+              </oj-form-layout>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="oj-flex-item">
+          <h2 class="oj-header-border">MODEL TRAINING WITH ADDITIONAL DATA</h2>
+          <oj-validation-group id="trackerT" valid="{{groupValidT}}">
+            <oj-form-layout max-columns="4">
+              <oj-combobox-one id="repId" value="{{reportId}}" label-hint="Report ID"
+                disabled="[[predictButtonDisabled]]">
+                <oj-option value="1">1</oj-option>
+                <oj-option value="2">2</oj-option>
+                <oj-option value="3">3</oj-option>
+                <oj-option value="4">4</oj-option>
+                <oj-option value="5">5</oj-option>
+              </oj-combobox-one>
+              <oj-input-number id="repParams" value="{{reportParams}}" label-hint="Number of parameters" min="0"
+                max="30" disabled="[[predictButtonDisabled]]" display-options.messages="notewindow">
+              </oj-input-number>
+              <oj-radioset id="repExecSlot" value="{{reportExecSlot}}" label-hint="Time slot"
+                class="oj-choice-direction-row" disabled="[[predictButtonDisabled]]">
+                <oj-option value="1">Morning</oj-option>
+                <oj-option value="2">Midday</oj-option>
+                <oj-option value="3">Afternoon</oj-option>
+              </oj-radioset>
+              <oj-input-number id="repExecTime" value="{{reportExecTime}}" label-hint="Execution time (seconds)" min="0"
+                max="3600" disabled="[[predictButtonDisabled]]" display-options.messages="notewindow"></oj-input-number>
+            </oj-form-layout>
+          </oj-validation-group>
+          <oj-button id='bt3' on-oj-action='[[runTransferLearning]]' disabled="[[predictButtonDisabled]]">Train
+          </oj-button>
+          <oj-bind-if test="[[trainingChartVisibleT() === true]]">
+            <br><br>
+            <oj-chart id="chart2" type="line" data="[[trainingProgressDataProviderT]]" animation-on-display="auto"
+              animation-on-data-change="auto" orientation="vertical" hover-behavior="dim"
+              style="width:100%;height:350px;">
+              <template slot="itemTemplate" data-oj-as="item">
+                <oj-chart-item value="[[item.data.value]]" group-id="[[ [item.data.epoch] ]]"
+                  series-id="[[item.data.series]]">
+                </oj-chart-item>
+              </template>
+            </oj-chart>
+            <br>
+          </oj-bind-if>
+          <div class="oj-flex oj-flex-items-pad oj-sm-flex-direction-column">
+            <div class="oj-flex-item" data-bind="visible: epochInfoVisibleT">
+              <oj-bind-text value="[[epochInfoT]]"></oj-bind-text>
+              <br><br>
+            </div>
+            <div class="oj-flex-item" data-bind="visible: finalResultInfoVisibleT">
+              <oj-form-layout max-columns="3">
+                <oj-input-number id="in5" readonly value="[[finalTrainSetLossT]]" label-hint="Final train-set loss">
+                </oj-input-number>
+                <oj-input-number id="in7" readonly value="[[testSetLossT]]" label-hint="Test-set loss">
+                </oj-input-number>
+                <oj-input-number id="in4" readonly value="[[predictionOffTimeT]]" label-hint="Prediction off by (sec)">
+                </oj-input-number>
+              </oj-form-layout>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="oj-flex-item">
+          <h2 class="oj-header-border">PREDICTION</h2>
+          <oj-validation-group id="trackerP" valid="{{groupValidP}}">
+            <oj-form-layout max-columns="4">
+              <oj-combobox-one id="repIdP" value="{{reportIdP}}" label-hint="Report ID"
+                disabled="[[predictButtonDisabled]]">
+                <oj-option value="1">1</oj-option>
+                <oj-option value="2">2</oj-option>
+                <oj-option value="3">3</oj-option>
+                <oj-option value="4">4</oj-option>
+                <oj-option value="5">5</oj-option>
+              </oj-combobox-one>
+              <oj-input-number id="repParamsP" value="{{reportParamsP}}" label-hint="Number of parameters" min="0"
+                max="30" disabled="[[predictButtonDisabled]]" display-options.messages="notewindow">
+              </oj-input-number>
+              <oj-radioset id="repExecSlotP" value="{{reportExecSlotP}}" label-hint="Time slot"
+                disabled="[[predictButtonDisabled]]" class="oj-choice-direction-row">
+                <oj-option value="1">Morning</oj-option>
+                <oj-option value="2">Midday</oj-option>
+                <oj-option value="3">Afternoon</oj-option>
+              </oj-radioset>
+              <oj-input-number id="repExecTimeP" value="[[reportExecTimeP]]" style="font-weight:bold"
+                label-hint="Predicted execution time (seconds)" readonly></oj-input-number>
+            </oj-form-layout>
+          </oj-validation-group>
+          <oj-button id='bt2' on-oj-action='[[predictWithExistingModel]]' disabled="[[predictButtonDisabled]]">Predict
+          </oj-button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <script type="text/javascript" src="js/libs/require/require.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+</body>
+
+</html>
