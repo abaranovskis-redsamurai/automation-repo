@@ -12,4 +12,4 @@ Process automation with Machine Learning.
 10. regressiontfjs - TensorFlow.js use case example with training, transfer learning to predict business report execution time
 11. oracleml - machine learning with SQL in Oracle DB
 
-Author: Andrejus Baranovskis, Red Samurai Consulting (http://redsamuraiconsulting.com)
+Author: Andrej Baranovskij, Red Samurai Consulting (http://redsamuraiconsulting.com)
