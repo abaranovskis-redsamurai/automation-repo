@@ -11,5 +11,6 @@ Process automation with Machine Learning.
 9. tfjs-sentiment - TensorFlow.js example where Python model is reused to calculate hotel review sentiment
 10. regressiontfjs - TensorFlow.js use case example with training, transfer learning to predict business report execution time
 11. oracleml - machine learning with SQL in Oracle DB
+12. tf2.0 - ML model implemented with TensorFlow 2.0 and Keras
 
 Author: Andrej Baranovskij, Red Samurai Consulting (http://redsamuraiconsulting.com)
