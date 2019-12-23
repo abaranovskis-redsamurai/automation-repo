@@ -13,4 +13,6 @@ Process automation with Machine Learning.
 11. oracleml - machine learning with SQL in Oracle DB
 12. tf2.0 - ML model implemented with TensorFlow 2.0 and Keras
 
-Author: Andrej Baranovskij, Red Samurai Consulting (http://redsamuraiconsulting.com)
+Author: Andrej Baranovskij, Red Samurai Consulting (https://redsamuraiconsulting.com)
+
+Our Machine Learning product: https://katanaml.io/
