@@ -13,6 +13,7 @@ Process automation with Machine Learning.
 11. oracleml - machine learning with SQL in Oracle DB
 12. tf2.0 - ML model implemented with TensorFlow 2.0 and Keras
 13. tf-serving - TensorFlow Serving example to publish Keras model through REST
+14. forecast-lstm - Simple timeseries forecast example with true future
 
 Author: Andrej Baranovskij, Red Samurai Consulting (https://redsamuraiconsulting.com)
 
