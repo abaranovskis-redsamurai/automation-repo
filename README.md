@@ -12,6 +12,7 @@ Process automation with Machine Learning.
 10. regressiontfjs - TensorFlow.js use case example with training, transfer learning to predict business report execution time
 11. oracleml - machine learning with SQL in Oracle DB
 12. tf2.0 - ML model implemented with TensorFlow 2.0 and Keras
+13. tf-serving - TensorFlow Serving example to publish Keras model through REST
 
 Author: Andrej Baranovskij, Red Samurai Consulting (https://redsamuraiconsulting.com)
 
