@@ -1,0 +1,86 @@
+<html>
+
+<head></head>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis"></script>
+
+<body>
+    <h1>Diabetes Classifier!</h1>
+</body>
+
+<script lang="js">
+
+    async function run() {
+        console.log('Running');
+
+        const trainingUrl = 'diabetes-train.csv';
+        const trainingData = tf.data.csv(trainingUrl, {
+            columnConfigs: {
+                Outcome: {
+                    isLabel: true
+                }
+            }
+        });
+        // Prepare the Dataset for training.
+        const convertedTrainingData =
+            trainingData.map(({ xs, ys }) => {
+                // Convert xs(features) and ys(labels) from object form (keyed by column name) to array form.
+                return { xs: Object.values(xs), ys: Object.values(ys) };
+            }).batch(30);
+
+        const testingUrl = 'diabetes-test.csv';
+        const testingData = tf.data.csv(testingUrl, {
+            columnConfigs: {
+                Outcome: {
+                    isLabel: true
+                }
+            }
+        });
+        const convertedTestingData =
+            testingData.map(({ xs, ys }) => {
+                return { xs: Object.values(xs), ys: Object.values(ys) };
+            }).batch(30);
+
+        const numOfFeatures = (await trainingData.columnNames()).length - 1;
+
+        const model = tf.sequential();
+        model.add(tf.layers.dense({
+            inputShape: [numOfFeatures],
+            units: 12,
+            activation: 'relu'
+        }));
+        model.add(tf.layers.dense({
+            units: 8,
+            activation: 'relu'
+        }));
+        model.add(tf.layers.dense({
+            units: 1,
+            activation: 'sigmoid'
+        }));
+
+        model.compile({ optimizer: tf.train.adam(0.001), loss: 'binaryCrossentropy', metrics: 'accuracy' });
+
+        const metrics = ['loss', 'val_loss', 'acc', 'val_acc'];
+        const container = { name: 'Model Training', styles: { width: '1200px' } };
+        const fitCallbacks = tfvis.show.fitCallbacks(container, metrics, {callbacks: ['onEpochEnd'], width: 1200});
+
+        await model.fitDataset(convertedTrainingData,
+            {
+                epochs: 100,
+                validationData: convertedTestingData,
+                callbacks: fitCallbacks
+            });
+
+        // predict
+
+        const testVal = tf.tensor2d([2, 108, 64, 0, 0, 30.8, 0.158, 21], [1, 8]);
+        const prediction = model.predict(testVal);
+        outcome = prediction.dataSync()[0];
+        prediction.dispose();
+
+        console.log('Outcome: ' + outcome);
+    }
+    run();
+</script>
+
+</html>
