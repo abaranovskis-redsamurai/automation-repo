@@ -15,6 +15,7 @@ Process automation with Machine Learning.
 13. tf-serving - TensorFlow Serving example to publish Keras model through REST
 14. forecast-lstm - Simple timeseries forecast example with true future
 15. tfjs-simple - TensorFlow.js example using TensorFlow.js API for data read and processing
+16. pipeline - ML pipeline example with Keras regression model, scheduled re-training and Flask REST API
 
 Author: Andrej Baranovskij, Red Samurai Consulting (https://redsamuraiconsulting.com)
 
