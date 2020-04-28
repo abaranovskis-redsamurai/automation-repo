@@ -14,6 +14,7 @@ Process automation with Machine Learning.
 12. tf2.0 - ML model implemented with TensorFlow 2.0 and Keras
 13. tf-serving - TensorFlow Serving example to publish Keras model through REST
 14. forecast-lstm - Simple timeseries forecast example with true future
+15. tfjs-simple - TensorFlow.js example using TensorFlow.js API for data read and processing
 
 Author: Andrej Baranovskij, Red Samurai Consulting (https://redsamuraiconsulting.com)
 
