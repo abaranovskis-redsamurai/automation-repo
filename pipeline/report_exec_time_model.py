@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[26]:
+# In[2]:
 
 
 import numpy as np
@@ -24,7 +24,7 @@ from sklearn.model_selection import train_test_split
 print(tf.__version__)
 
 
-# In[2]:
+# In[3]:
 
 
 def plot_history(history):
@@ -54,7 +54,7 @@ def plot_history(history):
     plt.show()
 
 
-# In[3]:
+# In[4]:
 
 
 def copyDirectory(src, dest):
@@ -68,7 +68,7 @@ def copyDirectory(src, dest):
         print('Directory not copied. Error: %s' % e)
 
 
-# In[29]:
+# In[5]:
 
 
 def get_immediate_subdirectories(a_dir):
@@ -76,7 +76,7 @@ def get_immediate_subdirectories(a_dir):
             if os.path.isdir(os.path.join(a_dir, name))]
 
 
-# In[4]:
+# In[11]:
 
 
 def fetch_data():
@@ -91,7 +91,7 @@ def fetch_data():
     dataframe = pd.read_csv('report_exec_times.csv')
     dataframe_test = pd.read_csv('report_exec_times_test.csv')
     
-    print('Time, mean:', dataframe["exec_time"].mean())
+    print('Time, mean for test dataset:', dataframe_test["exec_time"].mean())
     
     # Normalize training feature - report_params
     eps=0.001
