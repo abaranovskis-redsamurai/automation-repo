@@ -1,0 +1,15 @@
+/node_modules
+/bower_components
+/web
+/themes
+
+/hybrid/node_modules
+/hybrid/platforms
+/hybrid/www/*
+
+!hybrid/plugins
+hybrid/plugins/*
+!hybrid/plugins/fetch.json
+
+.DS_Store
+Thumbs.db

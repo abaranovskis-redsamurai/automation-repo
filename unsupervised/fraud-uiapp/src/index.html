@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <title>Katana ML - Fraud</title>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
+  <link rel="icon" href="css/images/katana.ico" type="image/x-icon" />
+
+  <!-- This is the main css file for the default Alta theme -->
+  <!-- injector:theme -->
+  <link rel="stylesheet" href="css/libs/oj/v8.1.0/alta/oj-alta-min.css" type="text/css" />
+  <!-- endinjector -->
+  <!-- This contains icon fonts used by the starter template -->
+  <link rel="stylesheet" href="css/demo-alta-site-min.css" type="text/css" />
+
+  <!-- This is where you would add any app specific styling -->
+  <link rel="stylesheet" href="css/app.css" type="text/css" />
+</head>
+
+<body class="oj-web-applayout-body">
+  <div id="globalBody" class="oj-web-applayout-page">
+    <!--
+         ** Oracle JET V8.1.0 web application header pattern.
+         ** Please see the demos under Cookbook/Patterns/App Shell: Web
+         ** and the CSS documentation under Support/API Docs/Non-Component Styling
+         ** on the JET website for more information on how to use this pattern.
+      -->
+    <header role="banner" class="oj-web-applayout-header">
+      <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
+        <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
+          <img src="css/images/katana_logo.png" alt="Logo" width="127px" height="50px" />
+        </div>
+      </div>
+    </header>
+    <div role="main" class="oj-web-applayout-max-width oj-web-applayout-content">
+      <h1>Health Insurance Fraud</h1>
+      <br />
+      <h2 class="oj-header-border">DESCRIPTION</h2>
+      Detecting fraudulent claims. Model is trained in unsupervised manner, without labels - using anomaly detection
+      with auto-encoders.
+      Test dataset contains 30,000 valid and 300 fraudulent claims. Threshold value 0.003 is identified as the optimal,
+      based on the given training dataset.
+      <br /><br />
+      <h2 class="oj-header-border">ANOMALY DETECTION WITH AUTO-ENCODERS</h2>
+      <div class="oj-flex-bar oj-sm-align-items-baseline">
+        <div class="oj-flex-bar-start">
+          <div>
+            <oj-input-number id="fraudThreshold" label-hint="Fraud Threshold" label-edge="inside" style="width:20em"
+              min="0" max="1" step="0.1" value="{{fraudThreshold}}" converter='[[decimalConverter]]'>
+            </oj-input-number>
+          </div>
+        </div>
+        <div class="oj-flex-bar-middle">
+          <div style="padding-left:10px">
+            <oj-button id='processBtn' on-oj-action='[[runFraud]]'>Process</oj-button>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <oj-form-layout id="ofl1" max-columns="4">
+        <oj-input-number id="f1" label-hint="Valid Claims" readonly="true" value="[[validClaims]]" label-edge='inside'>
+        </oj-input-number>
+        <oj-input-number id="f2" label-hint="Fraudulent Claims" readonly="true" value="[[fraudulentClaims]]"
+          label-edge='inside'>
+        </oj-input-number>
+        <oj-input-number id="f3" label-hint="False Fraudulent Claims (Actual Valid)" readonly="true"
+          value="[[falseFraudulentClaims]]" label-edge='inside'>
+        </oj-input-number>
+        <oj-input-number id="f4" label-hint="False Valid Claims (Actual Fraud)" readonly="true"
+          value="[[falsePositiveClaims]]" label-edge='inside'>
+        </oj-input-number>
+      </oj-form-layout>
+      <hr />
+      <oj-chart type="scatter" data="[[fraudDataProvider]]" animation-on-display="auto" hover-behavior="dim"
+        style="width:100%;height:400px;" y-axis="[[yAxisClaimsFraud]]">
+        <template slot='itemTemplate' data-oj-as='item'>
+          <oj-chart-item x='[[item.data.x]]' y='[[item.data.y]]' group-id='[[ [item.data.group] ]]'
+            series-id='[[item.data.series]]'>
+          </oj-chart-item>
+        </template>
+        <template slot="seriesTemplate" data-oj-as="series">
+          <oj-chart-series
+            color="[[series.id === 'Fraudulent Claim' ? '#EFC1C1': series.id === 'False Fraudulent Claim' ? '#E7B416': series.id === 'False Valid Claim' ? '#CC3232': null]]">
+          </oj-chart-series>
+        </template>
+      </oj-chart>
+      X = claim transaction ID. Y = claim cost.
+    </div>
+    <footer class="oj-web-applayout-footer" role="contentinfo">
+      <div class="oj-web-applayout-footer-item oj-web-applayout-max-width">
+        <ul>
+          <oj-bind-for-each data="[[footerLinks]]">
+            <template>
+              <li><a :id="[[$current.data.linkId]]" :href="[[$current.data.linkTarget]]" target="_blank">
+                  <oj-bind-text value="[[$current.data.name]]"></oj-bind-text>
+                </a></li>
+            </template>
+          </oj-bind-for-each>
+        </ul>
+      </div>
+      <div class="oj-web-applayout-footer-item oj-web-applayout-max-width oj-text-secondary-color oj-text-sm">
+        Copyright © 2020 Katana ML and/or its affiliates All rights reserved.
+      </div>
+    </footer>
+  </div>
+
+  <script type="text/javascript" src="js/libs/require/require.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+
+</body>
+
+</html>
