@@ -16,6 +16,7 @@ Process automation with Machine Learning.
 14. forecast-lstm - Simple timeseries forecast example with true future
 15. tfjs-simple - TensorFlow.js example using TensorFlow.js API for data read and processing
 16. pipeline - ML pipeline example with Keras regression model, scheduled re-training and Flask REST API
+17. unsupervised - Unsupervised ML example with autoencoder to detect anomaly (fraud) in Health Insurance Claims
 
 Author: Andrej Baranovskij, Red Samurai Consulting (https://redsamuraiconsulting.com)
 
