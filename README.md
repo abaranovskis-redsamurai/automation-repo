@@ -1,4 +1,4 @@
-'''New samples are posted here''': https://github.com/katanaml/sample-apps
+**New samples are posted here**: https://github.com/katanaml/sample-apps
 
 Process automation with Machine Learning.
 
