@@ -1,3 +1,5 @@
+New samples are posted here: https://github.com/katanaml/sample-apps
+
 Process automation with Machine Learning.
 
 1. invoice-automation-d1.ipynb - date is split into multiple columns
